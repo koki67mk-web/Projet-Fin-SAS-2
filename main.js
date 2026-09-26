@@ -103,3 +103,11 @@ function AjouterNouveaucandidat(){
    console.log(candidats);
    MenuPrincipal();
 };
+
+function AjouterPlusieursCandidats() {
+    let nomber = Number(prompt(" combien de candidat vous voulez ajouter ? "));
+    for ( let i = 0 ; i < nomber ; i++ ){
+        AjouterNouveaucandidat();
+    }
+    MenuPrincipal();
+};

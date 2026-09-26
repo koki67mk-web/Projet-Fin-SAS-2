@@ -111,3 +111,52 @@ function AjouterPlusieursCandidats() {
     }
     MenuPrincipal();
 };
+
+
+function Afficher_la_list_candidats(){
+    console.log("===============================");
+    console.log("          betite menu          ");
+    console.log("===============================")
+    console.log("1- le nomber de vote :");
+    console.log("2- filtrez parti politique spécifique  :")
+    let choix = Number(prompt("entrer votre choix "));
+      switch (choix) {
+        // Trier les candidats par nombre de votes (ordre décroissant pour voir les gagnants) par bubl sort 
+        // afichie les candidas qui avez plus de electeur
+        case 1:
+     for(let i = 0 ; i < candidats.length-1 ; i++){
+        for(let j = 0 ; j < candidats.length-i-1 ;j++){
+            if(candidats[j].electeurs.length < candidats[j+1].electeurs.length){
+                let temp = candidats[j]
+                candidats[j] = candidats[j+1]
+                candidats[j+1] = temp;
+            }
+        }
+     }
+    //  afichie avec cette maniar dans chaque candidat
+     for(let i= 0 ; i < candidats.length ; i++){
+        console.log("==== la liste de candidats ====");
+        console.log("cin : "  + candidats[i].cin );
+        console.log("nom : " , candidats[i].nom );
+        console.log("prenome : ", candidats[i].prenom);
+        console.log("parti Politique : ", candidats[i].partiPolitique);
+        console.log("age : ", candidats[i].age );
+        console.log("electeurs : ", candidats[i].electeurs);
+        console.log("===================================")
+
+     }
+      break;
+    //   Filtrer et afficher uniquement les candidats d'un parti politique spécifique.
+    //  affichie les candidat qui avez le meme politique
+        case 2 :
+          let Politique = prompt(" entre votre parti politique : ");
+           for (let i = 0 ; i < candidats.length ; i++ ){
+             if ( Politique === candidats[i].partiPolitique){
+                console.log(candidats[i])
+                // console.log("exist")
+
+            }
+        }
+    }
+    MenuPrincipal();
+}

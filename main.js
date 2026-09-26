@@ -81,3 +81,25 @@ switch (choix){
 }
 }; 
 MenuPrincipal();
+
+function AjouterNouveaucandidat(){
+    console.log( "  ====votre information====  ");
+    let cin = prompt("Entrer votre CIN : ");
+    let nom = prompt("Entrer votre nom : ");
+    let prenom = prompt("Entrer votre prénom : ");
+    let partiPolitique = prompt("entrer votr partipolitique : ");
+    let age =Number(prompt("entrer votr age : "));
+    let electeurs =[]
+    console.log (" =========================== ");
+     let nouveauCandidat = {
+        cin : cin,
+        nom : nom,
+        prenom : prenom,
+        partiPolitique : partiPolitique,
+        age : age,
+        electeurs : electeurs
+};
+    candidats.push(nouveauCandidat);
+   console.log(candidats);
+   MenuPrincipal();
+};

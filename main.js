@@ -206,3 +206,31 @@ function Voter_pour_un_candidat() {
   }
   MenuPrincipal();
 }
+
+function ModifierInformationsCandidat() {
+  // entrer le cin de candidat si nous trouve il peux change.
+  let cin = prompt("entre le cin de candidat ");
+  for (let i = 0; i < candidats.length; i++) {
+    if (candidats[i].cin === cin) {
+      console.log(" ==== menu modification ====");
+      console.log(" 1 - Modifier le parti politique ");
+      console.log(" 2 -  Modifier l'âge ");
+      console.log("=============================");
+      let choix = Number(prompt("entrer votre choix "));
+      switch (choix) {
+        // Modifier le parti politique d'un candidat.
+        case 1:
+          candidats[i].partiPolitique = prompt(
+            "Entrez le nouveau parti politique : ",
+          );
+          console.log("Parti politique modifié avec succès.");
+          break;
+        case 2:
+          // Modifier l'âge d'un candidat.
+          candidats[i].age = Number(prompt("entre votre nouveau age : "));
+          console.log("age modifié avec succés ");
+      }
+    }
+  }
+  MenuPrincipal();
+}

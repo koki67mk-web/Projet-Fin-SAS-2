@@ -255,3 +255,26 @@ function SupprimerCandidat() {
   }
   MenuPrincipal();
 }
+
+function Rechercher_des_candidats() {
+  const Nom = prompt(" entrer votre nom : ");
+  // Rechercher un candidat par son Nom.
+  let exist = false;
+  for (let i = 0; i < candidats.length; i++) {
+    if (candidats[i].nom === Nom) {
+      console.log("==== la liste de candidats ====");
+      console.log("cin : " + candidats[i].cin);
+      console.log("nom : ", candidats[i].nom);
+      console.log("prenome : ", candidats[i].prenom);
+      console.log("parti Politique : ", candidats[i].partiPolitique);
+      console.log("age : ", candidats[i].age);
+      console.log("electeurs : ", candidats[i].electeurs);
+      console.log("===================================");
+      exist = true;
+    }
+  }
+  if (!exist) {
+    console.log("le nom introuvabl : ");
+    return;
+  }
+}

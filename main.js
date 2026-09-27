@@ -278,3 +278,69 @@ function Rechercher_des_candidats() {
     return;
   }
 }
+function StatistiquesElection() {
+  {
+    // Afficher le nombre total de candidats
+    let total = 0;
+    let totalelcteur = 0;
+    for (let i = 0; i < candidats.length; i++) {
+      total++;
+    }
+    console.log("le nombre total de candidats :" + total);
+
+    // Afficher le nombre total de votes pour tout les candidats.
+
+    for (let i = 0; i < candidats.length; i++) {
+      totalelcteur = totalelcteur + candidats[i].electeurs.length;
+    }
+    console.log(
+      "le nombre total de votes exprimés dans toute l'élection : " +
+        totalelcteur,
+    );
+
+    // Afficher le Top 3 des candidats ayant le plus de votes avec cette manier
+
+    for (let j = 0; j < candidats.length; j++) {
+      for (let i = 0; i < candidats.length - 1; i++) {
+        if (candidats[i].electeurs.length < candidats[i + 1].electeurs.length) {
+          let swap = candidats[i];
+          candidats[i] = candidats[i + 1];
+          candidats[i + 1] = swap;
+        }
+      }
+    }
+    for (let i = 0; i < 3; i++) {
+      console.log("======= Top " + (i + 1) + " =======");
+      console.log("cin : ", candidats[i].cin);
+      console.log("Nom :", candidats[i].nom);
+      console.log("Prénom :", candidats[i].prenom);
+      console.log("Parti politique :", candidats[i].partiPolitique);
+      console.log("age : ", candidats[i].age);
+      console.log(
+        "Nombre de votes dans electeurs :",
+        candidats[i].electeurs.length,
+      );
+      console.log("====================================");
+      console.log(" ");
+    }
+  }
+
+  //Afficher le nombre de candidats par parti politique qui avez le meme parti politique
+  let objet = {};
+
+  for (let i = 0; i < candidats.length; i++) {
+    if (objet[candidats[i].partiPolitique] === undefined) {
+      objet[candidats[i].partiPolitique] = 1;
+    } else {
+      objet[candidats[i].partiPolitique] += 1;
+    }
+  }
+  console.log("Afficher le nombre de candidats par parti politique . ", objet);
+
+  MenuPrincipal();
+}
+
+function Quitter() {
+  Quitter;
+  MenuPrincipal();
+}

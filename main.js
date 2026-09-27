@@ -234,3 +234,24 @@ function ModifierInformationsCandidat() {
   }
   MenuPrincipal();
 }
+
+function SupprimerCandidat() {
+  // Supprimer un candidat de la liste apartir de son CIN .
+  let cin = prompt("entre le cin de candidat qui vous voulez supprimer ");
+  let candid;
+  let exist = false;
+  for (let i = 0; i < candidats.length; i++) {
+    if (candidats[i].cin === cin) {
+      exist = true;
+      candid = [i];
+      candidats.splice(candid, 1);
+      console.log("le candidats etes supprimer avec succse");
+    }
+  }
+  if (!exist) {
+    console.log("le cin de candidats est introuvablle");
+    4;
+    return;
+  }
+  MenuPrincipal();
+}

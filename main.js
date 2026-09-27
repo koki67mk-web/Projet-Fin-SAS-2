@@ -63,6 +63,7 @@ function MenuPrincipal() {
   switch (choix) {
     case 1:
       AjouterNouveaucandidat();
+      MenuPrincipal();
       break;
     case 2:
       AjouterPlusieursCandidats();
@@ -111,7 +112,6 @@ function AjouterNouveaucandidat() {
   };
   candidats.push(nouveauCandidat);
   console.log(candidats);
-  MenuPrincipal();
 }
 
 function AjouterPlusieursCandidats() {
@@ -238,20 +238,17 @@ function ModifierInformationsCandidat() {
 function SupprimerCandidat() {
   // Supprimer un candidat de la liste apartir de son CIN .
   let cin = prompt("entre le cin de candidat qui vous voulez supprimer ");
-  let candid;
   let exist = false;
   for (let i = 0; i < candidats.length; i++) {
     if (candidats[i].cin === cin) {
       exist = true;
-      candid = [i];
-      candidats.splice(candid, 1);
+      candidats.splice(i, 1);
       console.log("le candidats etes supprimer avec succse");
+      break;
     }
   }
   if (!exist) {
     console.log("le cin de candidats est introuvablle");
-    4;
-    return;
   }
   MenuPrincipal();
 }
@@ -275,8 +272,8 @@ function Rechercher_des_candidats() {
   }
   if (!exist) {
     console.log("le nom introuvabl : ");
-    return;
   }
+  MenuPrincipal();
 }
 function StatistiquesElection() {
   {
@@ -300,17 +297,17 @@ function StatistiquesElection() {
 
     // Afficher le Top 3 des candidats ayant le plus de votes avec cette manier
 
-    for (let j = 0; j < candidats.length; j++) {
-      for (let i = 0; i < candidats.length - 1; i++) {
-        if (candidats[i].electeurs.length < candidats[i + 1].electeurs.length) {
-          let swap = candidats[i];
-          candidats[i] = candidats[i + 1];
-          candidats[i + 1] = swap;
+    for (let i = 0; i < candidats.length; i++) {
+      for (let j = 0; j < candidats.length - 1; j++) {
+        if (candidats[j].electeurs.length < candidats[j + 1].electeurs.length) {
+          let toptries = candidats[j];
+          candidats[j] = candidats[j + 1];
+          candidats[j + 1] = toptries;
         }
       }
     }
     for (let i = 0; i < 3; i++) {
-      console.log("======= Top " + (i + 1) + " =======");
+      console.log("========= Top " + (i + 1) + " =========");
       console.log("cin : ", candidats[i].cin);
       console.log("Nom :", candidats[i].nom);
       console.log("Prénom :", candidats[i].prenom);
@@ -341,6 +338,7 @@ function StatistiquesElection() {
 }
 
 function Quitter() {
-  Quitter;
-  MenuPrincipal();
+  function Quitter() {
+    console.log("Merci d'avoir utilisé notre application. À bientôt !");
+  }
 }

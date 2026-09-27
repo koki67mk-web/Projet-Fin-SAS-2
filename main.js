@@ -338,7 +338,5 @@ function StatistiquesElection() {
 }
 
 function Quitter() {
-  function Quitter() {
-    console.log("Merci d'avoir utilisé notre application. À bientôt !");
-  }
+  console.log("Merci d'avoir utilisé notre application. À bientôt !");
 }

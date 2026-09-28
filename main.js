@@ -1,6 +1,6 @@
 const prompt = require("prompt-sync")();
 
-let candidats = [
+const candidats = [
   {
     cin: "AB123456",
     nom: "Boushaba",
@@ -43,56 +43,6 @@ let candidats = [
   },
 ];
 
-function MenuPrincipal() {
-  console.log(
-    `========= Menu_Principal========
-       1. Ajouter un nouveau candidat 
-       2. Ajouter plusieurs candidats à la fois
-       3. Afficher la liste des candidats 
-       4. Voter pour un candidat 
-       5. Modifier les informations d'un candidat 
-       6. Supprimer un candidat
-       7. Rechercher des candidats
-       8. Statistiques de l'élection
-       0. Quitter
-     ===================================
-`,
-  );
-
-  const choix = Number(prompt(" entrer votre choix : "));
-  switch (choix) {
-    case 1:
-      AjouterNouveaucandidat();
-      MenuPrincipal();
-      break;
-    case 2:
-      AjouterPlusieursCandidats();
-      break;
-    case 3:
-      Afficher_la_list_candidats();
-      break;
-    case 4:
-      Voter_pour_un_candidat();
-      break;
-    case 5:
-      ModifierInformationsCandidat();
-      break;
-    case 6:
-      SupprimerCandidat();
-      break;
-    case 7:
-      Rechercher_des_candidats();
-      break;
-    case 8:
-      StatistiquesElection();
-      break;
-    case 0:
-      Quitter();
-      break;
-  }
-}
-MenuPrincipal();
-
 function AjouterNouveaucandidat() {
   console.log("  ====votre information====  ");
   let cin = prompt("Entrer votre CIN : ");
@@ -111,7 +61,7 @@ function AjouterNouveaucandidat() {
     electeurs: electeurs,
   };
   candidats.push(nouveauCandidat);
-  console.log(candidats);
+//   console.log(candidats);
 }
 
 function AjouterPlusieursCandidats() {
@@ -119,21 +69,17 @@ function AjouterPlusieursCandidats() {
   for (let i = 0; i < nomber; i++) {
     AjouterNouveaucandidat();
   }
-  MenuPrincipal();
 }
 
 function Afficher_la_list_candidats() {
   console.log("===============================");
   console.log("          betite menu          ");
   console.log("===============================");
-  console.log("1- le nomber de vote :");
-  console.log("2- filtrez parti politique spécifique  :");
+  console.log("1- Trier les candidats par nombre de votes  :");
+  console.log("2- Filtrer et afficher les candidats d'un parti politique spécifique :");
   let choix = Number(prompt("entrer votre choix "));
-  switch (choix) {
-    // Trier les candidats par nombre de votes (ordre décroissant pour voir les gagnants) par bubl sort
-    // afichie les candidas qui avez plus de electeur
-    case 1:
-      for (let i = 0; i < candidats.length - 1; i++) {
+  if(choix===1) {
+     for (let i = 0; i < candidats.length - 1; i++) {
         for (let j = 0; j < candidats.length - i - 1; j++) {
           if (
             candidats[j].electeurs.length < candidats[j + 1].electeurs.length
@@ -144,9 +90,8 @@ function Afficher_la_list_candidats() {
           }
         }
       }
-      //  afichie avec cette maniar dans chaque candidat
+      console.log("==== la liste de candidats ====");
       for (let i = 0; i < candidats.length; i++) {
-        console.log("==== la liste de candidats ====");
         console.log("cin : " + candidats[i].cin);
         console.log("nom : ", candidats[i].nom);
         console.log("prenome : ", candidats[i].prenom);
@@ -155,20 +100,27 @@ function Afficher_la_list_candidats() {
         console.log("electeurs : ", candidats[i].electeurs);
         console.log("===================================");
       }
-      break;
-    //   Filtrer et afficher uniquement les candidats d'un parti politique spécifique.
-    //  affichie les candidat qui avez le meme politique
-    case 2:
-      let Politique = prompt(" entre votre parti politique : ");
-      for (let i = 0; i < candidats.length; i++) {
-        if (Politique === candidats[i].partiPolitique) {
-          console.log(candidats[i]);
-          // console.log("exist")
-        }
-      }
   }
-  MenuPrincipal();
-}
+    else if(choix===2){
+        let exist = false;
+        let Politique = prompt(" entre votre parti politique : ");
+        for (let i = 0; i < candidats.length; i++) {
+            if (Politique === candidats[i].partiPolitique) {
+                exist = true;
+                console.log("cin : " + candidats[i].cin);
+                console.log("nom : ", candidats[i].nom);
+                console.log("prenome : ", candidats[i].prenom);
+                console.log("parti Politique : ", candidats[i].partiPolitique);
+                console.log("age : ", candidats[i].age);
+                console.log("electeurs : ", candidats[i].electeurs.length);
+                console.log("==================================="); 
+            }
+        }
+        if(exist === false){
+            console.log("invalide!");
+        }
+  }
+    }
 
 function Voter_pour_un_candidat() {
   // Demander à l’électeur de saisir sa propre CIN
@@ -186,7 +138,6 @@ function Voter_pour_un_candidat() {
   }
   if (dejavote) {
     console.log("Vous avez déjà voté");
-    MenuPrincipal();
     return;
   }
   // si il peux vote il ecrirre le cin de candidate prefere et nous push dans le electeurs de ton prefer candidate.
@@ -204,7 +155,6 @@ function Voter_pour_un_candidat() {
   if (!trouve) {
     console.log("candidats introuvabl");
   }
-  MenuPrincipal();
 }
 
 function ModifierInformationsCandidat() {
@@ -217,27 +167,28 @@ function ModifierInformationsCandidat() {
       console.log(" 2 -  Modifier l'âge ");
       console.log("=============================");
       let choix = Number(prompt("entrer votre choix "));
-      switch (choix) {
-        // Modifier le parti politique d'un candidat.
-        case 1:
-          candidats[i].partiPolitique = prompt(
-            "Entrez le nouveau parti politique : ",
-          );
-          console.log("Parti politique modifié avec succès.");
-          break;
-        case 2:
-          // Modifier l'âge d'un candidat.
-          candidats[i].age = Number(prompt("entre votre nouveau age : "));
-          console.log("age modifié avec succés ");
+      if(choix===1){
+        //  Modifier le parti politique d'un candidat.
+        candidats[i].partiPolitique = prompt( "Entrez le nouveau parti politique : ");
       }
-    }
-  }
-  MenuPrincipal();
-}
-
+      else if(choix===2){
+         // Modifier l'âge d'un candidat.
+        candidats[i].age = Number(prompt("entre votre nouveau age : "));
+        console.log("age modifié avec succés ");
+      }else{
+        console.log("choix invalide");
+      }
+       }
+     }
+   }
 function SupprimerCandidat() {
   // Supprimer un candidat de la liste apartir de son CIN .
   let cin = prompt("entre le cin de candidat qui vous voulez supprimer ");
+  let ok = prompt("vous etes sur que vous voulez supprime O/N").toLowerCase();
+  if(ok === "n"){
+    MenuPrincipal();
+    return
+  }
   let exist = false;
   for (let i = 0; i < candidats.length; i++) {
     if (candidats[i].cin === cin) {
@@ -250,7 +201,6 @@ function SupprimerCandidat() {
   if (!exist) {
     console.log("le cin de candidats est introuvablle");
   }
-  MenuPrincipal();
 }
 
 function Rechercher_des_candidats() {
@@ -273,7 +223,6 @@ function Rechercher_des_candidats() {
   if (!exist) {
     console.log("le nom introuvabl : ");
   }
-  MenuPrincipal();
 }
 function StatistiquesElection() {
   {
@@ -333,10 +282,55 @@ function StatistiquesElection() {
     }
   }
   console.log("Afficher le nombre de candidats par parti politique . ", objet);
-
-  MenuPrincipal();
 }
 
-function Quitter() {
-  console.log("Merci d'avoir utilisé notre application. À bientôt !");
-}
+function MenuPrincipal() {
+     let choix;
+    do{
+        console.log("========= Menu_Principal========");
+        console.log("1. Ajouter un nouveau candidat ") ;
+        console.log("2. Ajouter plusieurs candidats à la fois") ;
+        console.log("3. Afficher la liste des candidats ") ;
+        console.log("4. Voter pour un candidat") ; 
+        console.log("5. Modifier les informations d'un candidat ") ;
+        console.log("6. Supprimer un candidat") ;
+        console.log ("7. Rechercher des candidats");
+        console.log ("8. Statistiques de l'élection") ;
+        console.log("0. Quitter") ;
+        console.log("===================================");
+
+choix = Number(prompt(" entrer votre choix : "));
+  switch (choix) {
+    case 1:
+      AjouterNouveaucandidat();
+      break;
+    case 2:
+      AjouterPlusieursCandidats();
+      break;
+    case 3:
+      Afficher_la_list_candidats();
+      break;
+    case 4:
+      Voter_pour_un_candidat();
+      break;
+    case 5:
+      ModifierInformationsCandidat();
+      break;
+    case 6:
+      SupprimerCandidat();
+      break;
+    case 7:
+      Rechercher_des_candidats();
+      break;
+    case 8:
+      StatistiquesElection();
+      break;
+    case 0:
+      console.log("Merci d'avoir utilisé notre application. À bientôt !");
+      break;
+  }
+ }while(choix!=0);
+} 
+MenuPrincipal();
+
+
